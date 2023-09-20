@@ -6,10 +6,15 @@
  */
 int main(argc, argv[])
 {
+	FILE *file;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 
-	parse_cmd(argv);
+	file = open_file(argv);
+	
+	parse_file_instr(file);
+}
