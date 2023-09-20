@@ -5,7 +5,7 @@
  * @argv: command line arguments
  * Return: a pointer to a file
  */
-FILE *open_file(argv)
+FILE *open_file(char **argv)
 {
 	FILE *file;
 
@@ -23,9 +23,9 @@ FILE *open_file(argv)
  * parse_file_instr - parses the file content
  * @file: a pointer to a file
  */
-void parse_file_instr(FILE *file, int read_bytes)
+char *parse_file_instr(FILE *file)
 {
-	char *buffer;
+	char *buffer = NULL;
 	size_t buff_size;
 	int read_bytes;
 
@@ -35,7 +35,7 @@ void parse_file_instr(FILE *file, int read_bytes)
 		exit(EXIT_FAILURE);
 	}
 
-	tokenizer(buffer, read_bytes);
+	return (buffer);
 }
 
 /**
@@ -44,11 +44,11 @@ void parse_file_instr(FILE *file, int read_bytes)
  */
 char **tokenizer(char *buffer, int read_bytes)
 {
-	char *token, *buffer_cp;
+	char *token;
 	char **token_arr;
 	int i = 0;
 
-	token_arr = (char *)malloc(read_bytes * sizeof(char));
+	token_arr = (char **)malloc(read_bytes * sizeof(char));
 	if (token_arr == NULL)
 	{
 		free(token_arr);
