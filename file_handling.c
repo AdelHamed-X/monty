@@ -30,7 +30,7 @@ void parse_file_instr(FILE *file, int read_bytes)
 	int read_bytes;
 
 	read_bytes = getline(&buffer, &buff_size, file);
-	if (read_bytes == 0)
+	if (read_bytes == -1)
 	{
 		exit(EXIT_FAILURE);
 	}
@@ -46,6 +46,7 @@ char **tokenizer(char *buffer, int read_bytes)
 {
 	char *token, *buffer_cp;
 	char **token_arr;
+	int i = 0;
 
 	token_arr = (char *)malloc(read_bytes * sizeof(char));
 	if (token_arr == NULL)
@@ -57,4 +58,11 @@ char **tokenizer(char *buffer, int read_bytes)
 	token = strtok(buffer, " ");
 	while (token)
 	{
-		token_arr[i] = (char *)
+		token_arr[i] = (char *)malloc(sizeof(token));
+		strcpy(token_arr[i], token);
+		i++;
+		token = strtok(NULL, " ");
+	}
+
+	return (token_arr);
+}

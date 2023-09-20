@@ -7,6 +7,8 @@
 int main(argc, argv[])
 {
 	FILE *file;
+	char **token_arr;
+	int i;
 
 	if (argc != 2)
 	{
@@ -16,5 +18,10 @@ int main(argc, argv[])
 
 	file = open_file(argv);
 	
-	parse_file_instr(file);
+	token_arr = parse_file_instr(file);
+
+	for (i = 0; (*token_arr) != NULL; i++)
+	{
+		printf("%s\n", token_arr[i]);
+	}
 }
