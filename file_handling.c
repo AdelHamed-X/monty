@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
- * tokenizer - parses the input text into single tokens
+ * tokenizer - parses the text to single tokens
  * @buff: a pointer to the input text
  * @read_bytes: number of read bytes from getline()
  * Return: the token array

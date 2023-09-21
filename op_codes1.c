@@ -1,4 +1,10 @@
 #include "monty.h"
+/**
+ * _push - add node to the stack
+ * @doubly: stack head
+ * @cline: line_number
+ * Return: no return
+*/
 
 void _push(stack_t **doubly, unsigned int cline)
 {

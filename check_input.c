@@ -3,7 +3,7 @@
 global_variables glob_var;
 
 /**
- * check_input - checks if input text is valid
+ * check_input - checks if input is valid
  * @argv: command line arguments
  */
 FILE *check_input(int argc, char *argv[])
