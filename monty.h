@@ -46,6 +46,9 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**** LINKED LISTS FUNCTIONS ****/
+stack_t *add_dnodeint(stack_t **head, const int n);
+stack_t *add_dnodeint_end(stack_t **head, const int n);
 
 void start_glob_var(FILE *file);
 FILE *check_input(int argc, char *argv[]);
