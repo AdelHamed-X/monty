@@ -8,6 +8,14 @@
 
 #define _POSIX_C_SOURCE 200809L
 
+typedef struct global_variables
+{
+	char *buff;
+	int read_bytes;
+	FILE *file;
+	char **token_arr;
+} global_variables;
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -38,8 +46,10 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-FILE *open_file(char **argv);
-char *parse_file_instr(FILE *file);
-char **tokenizer(char *buffer, int read_bytes);
+
+void start_glob_var(FILE *file);
+FILE *check_input(int argc, char *argv[]);
+char **tokenizer(char *buff, int read_bytes);
+void _push(stack_t **doubly, unsigned int cline);
 
 #endif

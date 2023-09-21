@@ -1,68 +1,48 @@
 #include "monty.h"
 
 /**
- * open_file - opens a file
- * @argv: command line arguments
- * Return: a pointer to a file
+ * tokenizer - parses the input text into single tokens
+ * @buff: a pointer to the input text
+ * @read_bytes: number of read bytes from getline()
+ * Return: the token array
  */
-FILE *open_file(char **argv)
+char **tokenizer(char *buff, int read_bytes)
 {
-	FILE *file;
-
-	file = fopen(argv[1], "r");
-	if (file == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file <file>\n");
-		exit(EXIT_FAILURE);
-	}
-	
-	return (file);
-}
-
-/**
- * parse_file_instr - parses the file content
- * @file: a pointer to a file
- */
-char *parse_file_instr(FILE *file)
-{
-	char *buffer = NULL;
-	size_t buff_size;
-	int read_bytes;
-
-	read_bytes = getline(&buffer, &buff_size, file);
-	if (read_bytes == -1)
-	{
-		exit(EXIT_FAILURE);
-	}
-
-	return (buffer);
-}
-
-/**
- *
- *
- */
-char **tokenizer(char *buffer, int read_bytes)
-{
-	char *token;
+	char *token, *buff_cp;
 	char **token_arr;
-	int i = 0;
+	int i = 0, token_count = 0;
 
-	token_arr = (char **)malloc(read_bytes * sizeof(char));
-	if (token_arr == NULL)
+	buff_cp = (char *)malloc(sizeof(char) * (read_bytes + 1));
+	if (buff_cp == NULL)
 	{
-		free(token_arr);
+		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	token = strtok(buffer, " ");
+	strcpy(buff_cp, buff);
+	printf("buff_cp is: %s\n", buff_cp);
+	token = strtok(buff_cp, " \t\n");
 	while (token)
 	{
-		token_arr[i] = (char *)malloc(sizeof(token));
+		token_count++;
+		token = strtok(NULL, " ");
+	}
+	token_count++;
+
+	token_arr = (char **)malloc(token_count * sizeof(char *));
+	if (token_arr == NULL)
+	{
+		free(buff_cp);
+		fprintf(stderr, "Error: malloc failed\n");
+	}
+	token = strtok(buff, " \t\n");
+	while (token)
+	{
+		token_arr[i] = (char *)malloc(sizeof(char) * (strlen(token) + 1));
 		strcpy(token_arr[i], token);
 		i++;
 		token = strtok(NULL, " ");
 	}
+	token_arr[i] = NULL;
 
 	return (token_arr);
 }
